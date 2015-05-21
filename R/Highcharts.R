@@ -174,7 +174,7 @@ hPlot <- highchartPlot <- function(..., radius = 3, title = NULL, subtitle = NUL
     
     if (nrows != nrow(data)) warning("Observations with NA has been removed")
     
-    #  data <- data[order(data$x, data$y), ]  # order data (due to line charts)  ###
+    data <- data[order(data$x, data$y), ]  # order data (due to line charts)  ###
     
     if ("bubble" %in% d$type && is.null(data$size)) stop("'size' is missing")
     
