@@ -179,15 +179,15 @@ hPlot <- highchartPlot <- function(..., radius = 3, title = NULL, subtitle = NUL
     if ("bubble" %in% d$type && is.null(data$size)) stop("'size' is missing")
     
     if (!is.null(d$group)) {
-        groups <- ifelse(is.factor(data$group),levels(data$group),sort(unique(data$group)))  ###
+        if(is.factor(data$group)) groups <- levels(data$group) else groups <- sort(unique(data$group))  ###
     #    groups <- sort(unique(data$group))
         types <- rep(d$type, length(groups))  # repeat types to match length of groups
         # for debugging
         cat("groups=",paste(groups,collapse =","))
         
         plyr::ddply(data, .(group), function(x) {
-            # try respecting factors?   
-            g <- ifelse(is.factor(x$group),levels(x$group),unique(x$group))
+            # try respecting factors? 
+            if(is.factor(x$group)) g <- levels(x$group) else g <- unique(x$group)
         #    g <- unique(x$group)
             i <- which(groups == g)
             
