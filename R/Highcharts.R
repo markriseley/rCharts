@@ -152,15 +152,15 @@ hPlot <- highchartPlot <- function(..., radius = 3, title = NULL, subtitle = NUL
     )
     
     if (!is.null(d$group)) {
-    # adding to allow factors
-        if(is.factor(d$data[[d$group]])) {
-            data$group <- d$data[[d$group]]
-            } else {
-            data$group <- as.character(d$data[[d$group]])
+    # adding to support using factor levels to order charts...
+        if(is.factor(d$data[[d$group]])) {  ###
+            data$group <- d$data[[d$group]]  ###
+            } else {  ###
+            data$group <- as.character(d$data[[d$group]])  ###
             }### 
     #    data$group <- as.character(d$data[[d$group]])
         if (!is.null(group.na)) {
-        # create group.na level if required
+        # factor method: create group.na level, then transfer NAs to it...
             if(is.factor(data$group)) {  ###
                 data$group <- factor(data$group, levels = c(levels(data$group),group.na))  ###
                 } ###   
@@ -174,20 +174,17 @@ hPlot <- highchartPlot <- function(..., radius = 3, title = NULL, subtitle = NUL
     
     if (nrows != nrow(data)) warning("Observations with NA has been removed")
     
-    data <- data[order(data$x, data$y), ]  # order data (due to line charts)  ###
+    data <- data[order(data$x, data$y), ]  # order data (due to line charts)
     
     if ("bubble" %in% d$type && is.null(data$size)) stop("'size' is missing")
     
     if (!is.null(d$group)) {
+    # use factor levels to drive order if levels are available...
         if(is.factor(data$group)) groups <- levels(data$group) else groups <- sort(unique(data$group))  ###
-    #    groups <- sort(unique(data$group))
+    #    groups <- sort(unique(data$group))  ### original code
         types <- rep(d$type, length(groups))  # repeat types to match length of groups
-        # for debugging
-        cat("groups=",paste(groups,collapse =","))
-        
+
         plyr::ddply(data, .(group), function(x) {
-            # try respecting factors? 
-        #    if(is.factor(x$group)) g <- levels(x$group) else g <- unique(x$group)
             g <- unique(x$group)
             i <- which(groups == g)
             
