@@ -187,8 +187,8 @@ hPlot <- highchartPlot <- function(..., radius = 3, title = NULL, subtitle = NUL
         
         plyr::ddply(data, .(group), function(x) {
             # try respecting factors? 
-            if(is.factor(x$group)) g <- levels(x$group) else g <- unique(x$group)
-        #    g <- unique(x$group)
+        #    if(is.factor(x$group)) g <- levels(x$group) else g <- unique(x$group)
+            g <- unique(x$group)
             i <- which(groups == g)
             
             x$group <- NULL  # fix
