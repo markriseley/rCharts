@@ -153,13 +153,16 @@ hPlot <- highchartPlot <- function(..., radius = 3, title = NULL, subtitle = NUL
     
     if (!is.null(d$group)) {
     # adding to allow factors
-        data$group <- d$data[[d$group]]  ###
-        if(is.factor(d$data[[d$group]])) data$group <- d$data[[d$group]] else data$group <- as.character(d$data[[d$group]])  ### 
+        if(is.factor(d$data[[d$group]])) {
+            data$group <- d$data[[d$group]]
+            } else {
+            data$group <- as.character(d$data[[d$group]])
+            }### 
     #    data$group <- as.character(d$data[[d$group]])
         if (!is.null(group.na)) {
         # create group.na level if required
             if(is.factor(data$group)) {  ###
-                data$group <- factor(data$group, levels = c(levels(data$group),group.na)  ###
+                data$group <- factor(data$group, levels = c(levels(data$group),group.na))  ###
                 } ###   
             data$group[is.na(data$group)] <- group.na
         }
