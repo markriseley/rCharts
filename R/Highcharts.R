@@ -182,6 +182,8 @@ hPlot <- highchartPlot <- function(..., radius = 3, title = NULL, subtitle = NUL
         groups <- ifelse(is.factor(data$group),levels(data$group),sort(unique(data$group)))  ###
     #    groups <- sort(unique(data$group))
         types <- rep(d$type, length(groups))  # repeat types to match length of groups
+        # for debugging
+        cat("groups=",str_c(groups,collapse =","))
         
         plyr::ddply(data, .(group), function(x) {
             g <- unique(x$group)
