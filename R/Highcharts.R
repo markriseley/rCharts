@@ -183,7 +183,7 @@ hPlot <- highchartPlot <- function(..., radius = 3, title = NULL, subtitle = NUL
     #    groups <- sort(unique(data$group))
         types <- rep(d$type, length(groups))  # repeat types to match length of groups
         # for debugging
-        cat("groups=",stringr::str_c(groups,collapse =","))
+        cat("groups=",paste(groups,collapse =","))
         
         plyr::ddply(data, .(group), function(x) {
             # try respecting factors?   
