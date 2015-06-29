@@ -162,7 +162,7 @@ hPlot <- highchartPlot <- function(..., radius = 3, title = NULL, subtitle = NUL
         if (!is.null(group.na)) {
         # factor method: create group.na level, then transfer NAs to it...
             if(is.factor(data$group)) {  ###
-                data$group <- factor(data$group, levels = c(levels(data$group),group.na))  ###
+                data$group <- factor(data$group, levels = unique(c(levels(data$group),group.na)))  ###
                 } ###   
             data$group[is.na(data$group)] <- group.na
         }
